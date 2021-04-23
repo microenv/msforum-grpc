@@ -1,0 +1,137 @@
+import "google/protobuf/empty.proto";
+
+syntax = "proto3";
+
+package forum;
+
+service ForumService {
+  rpc ListMainCategories (google.protobuf.Empty) returns (CategoryList) {}
+  // rpc ListCategories (ListCategories_Request) returns (CategoryList) {}
+  rpc GetCategory (GetCategory_Request) returns (CategoryFullData) {}
+  // ---
+  rpc ListPosts (ListPosts_Request) returns (PostList) {}
+  rpc GetPost (GetPost_Request) returns (PostFullData) {}
+  // ---
+  rpc CreatePost (CreatePost_Request) returns (Post) {}
+  rpc CreatePostComment (CreatePostComment_Request) returns (PostComment) {}
+  rpc CreatePostReaction (CreatePostReaction_Request) returns (PostReaction) {}
+  rpc UpdatePost (UpdatePost_Request) returns (Post) {}
+}
+
+// -----------------------------
+// Post
+
+message ListPosts_Request {
+  string categoryId = 1;
+}
+
+message GetPost_Request {
+  string postId = 1;
+}
+
+message CreatePost_Request {
+  string categoryId = 1;
+  string createdBy = 2;
+  string title = 3;
+  string excerpt = 4;
+  string postType = 5;
+  string postState = 6;
+  string content = 7;
+}
+
+message UpdatePost_Request {
+  string title = 3;
+  string excerpt = 4;
+  string postType = 5;
+  string postState = 6;
+  string content = 7;
+  string id = 8;
+}
+
+message CreatePostComment_Request {
+  string postId = 1;
+  optional string parentId = 2;
+  string createdBy = 3;
+  string content = 4;
+}
+
+message CreatePostReaction_Request {
+  optional string postId = 1;
+  optional string commentId = 2;
+  string createdBy = 3;
+  string reactType = 4;
+}
+
+message PostList {
+  repeated Post posts = 1;
+}
+
+message PostFullData {
+  Post post = 1;
+  repeated PostComment comments = 2;
+  repeated PostReaction reactions = 3;
+  Category category = 4;
+}
+
+message Post {
+  string id = 1;
+  string categoryId = 2;
+  string createdBy = 3;
+  string createdAt = 4;
+  int32 commentsCount = 5;
+  string title = 6;
+  string excerpt = 7;
+  string postType = 8;
+  string postState = 9;
+  string updatedAt = 10;
+  string content = 11;
+}
+
+message PostComment {
+  string id = 1;
+  string postId = 2;
+  optional string parentId = 3;
+  string createdBy = 4;
+  string createdAt = 5;
+  string content = 6;
+}
+
+message PostReaction {
+  string id = 1;
+  optional string postId = 2;
+  optional string commentId = 3;
+  string createdBy = 4;
+  string createdAt = 5;
+  string reactType = 6;
+}
+
+// -----------------------------
+// Category
+
+message CategoryList {
+  bool success = 1;
+  repeated Category categories = 2;
+}
+
+message GetCategory_Request {
+  string categoryId = 1;
+}
+
+message CategoryFullData {
+  Category category = 1;
+  repeated Category subcategories = 2;
+  repeated Post posts = 3;
+}
+
+// message ListCategories_Request {
+//   string parentId = 1;
+// }
+
+message Category {
+  string id = 1;
+  optional string parentId = 2;
+  string title = 3;
+  string description = 4;
+  string createdAt = 5;
+  int32 postsCount = 6;
+}
