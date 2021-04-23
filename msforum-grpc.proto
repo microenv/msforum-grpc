@@ -46,6 +46,7 @@ message UpdatePost_Request {
   string postState = 6;
   string content = 7;
   string id = 8;
+  string createdBy = 9;
 }
 
 message CreatePostComment_Request {

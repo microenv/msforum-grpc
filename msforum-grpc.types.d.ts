@@ -58,17 +58,17 @@ declare module 'msforum-grpc' {
     createdBy: string;
     title: string;
     excerpt: string;
-    postState: IPostState;
     content: string;
   }
 
   export interface IUpdatePost_Request {
-    title: string;
-    excerpt: string;
-    postType: IPostType;
-    postState: IPostState;
-    content: string;
     id: string;
+    createdBy: string;
+    title?: string;
+    excerpt?: string;
+    postType?: IPostType;
+    postState?: IPostState;
+    content?: string;
   }
 
   export interface ICreatePostComment_Request {
