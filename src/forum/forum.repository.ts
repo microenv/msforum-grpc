@@ -4,8 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 import {
   ICategory,
+  ICreatePostComment_Request,
+  ICreatePostComment_Response,
   ICreatePost_Request,
   IPost,
+  IPostComment,
   IUpdatePost_Request,
 } from 'msforum-grpc';
 import { DynamodbService } from 'src/dynamodb/dynamodb.service';
@@ -107,7 +110,7 @@ export class ForumRepository {
           IndexName: 'WithParentId',
           KeyConditionExpression: 'parentId = :parentId',
           ExpressionAttributeValues: {
-            ':parentId': categoryId && String(categoryId),
+            ':parentId': categoryId,
           },
         },
         (err: AWSError, data: DocumentClient.QueryOutput) => {
@@ -129,7 +132,7 @@ export class ForumRepository {
           IndexName: 'WithCategoryId',
           KeyConditionExpression: 'categoryId = :categoryId',
           ExpressionAttributeValues: {
-            ':categoryId': categoryId && String(categoryId),
+            ':categoryId': categoryId,
           },
         },
         (err: AWSError, data: DocumentClient.QueryOutput) => {
@@ -138,6 +141,30 @@ export class ForumRepository {
             return;
           }
           resolve(data.Items as IPost[]);
+        },
+      );
+    });
+  }
+
+  listPostComments(postId: string): Promise<IPostComment[]> {
+    return new Promise((resolve, reject) => {
+      this.dbClient().query(
+        {
+          TableName: TableName('comments'),
+          IndexName: 'WithPostId',
+          KeyConditionExpression: 'postId = :postId',
+          ExpressionAttributeValues: {
+            ':postId': postId,
+          },
+          Select: 'ALL_ATTRIBUTES',
+        },
+        (err: AWSError, data: DocumentClient.QueryOutput) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          console.log('comments === ', data)
+          resolve(data.Items as IPostComment[]);
         },
       );
     });
@@ -191,17 +218,52 @@ export class ForumRepository {
       post.postState = defaultValue(payload.postState, post.postState, false);
       post.content = defaultValue(payload.content, post.content, false);
 
+      const Item = this.police.sanitizePost(post);
+
       this.dbClient().put(
         {
           TableName: TableName('posts'),
-          Item: this.police.sanitizePost(post),
+          Item,
         },
         (err: AWSError) => {
           if (err) {
             reject(err);
             return;
           }
-          resolve(post);
+          resolve(Item);
+        },
+      );
+    });
+  }
+
+  createPostComment(
+    payload: ICreatePostComment_Request,
+  ): Promise<ICreatePostComment_Response> {
+    return new Promise((resolve, reject) => {
+      const { postId, parentId, createdBy, content } = payload;
+
+      const comment: IPostComment = {
+        id: uuidv4(),
+        postId,
+        parentId,
+        createdBy,
+        content,
+        createdAt: new Date().toISOString(),
+      };
+
+      const Item = this.police.sanitizePostComment(comment);
+
+      this.dbClient().put(
+        {
+          TableName: TableName('comments'),
+          Item,
+        },
+        (err: AWSError) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(comment);
         },
       );
     });

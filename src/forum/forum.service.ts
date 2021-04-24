@@ -59,13 +59,14 @@ export class ForumService {
   async getPost(
     payload: IGetPost_Request,
   ): Promise<IGetPost_Response> {
-    const post = await this.repository.getPostById(String(payload.postId));
-    const category = await this.repository.getCategoryById(String(post.categoryId));
+    const post = await this.repository.getPostById(payload.postId);
+    const category = await this.repository.getCategoryById(post.categoryId);
+    const comments = await this.repository.listPostComments(post.id);
 
     return await Promise.resolve({
       post,
       category,
-      comments: [],
+      comments,
       reactions: [],
     });
   }
@@ -79,7 +80,7 @@ export class ForumService {
   async createPostComment(
     payload: ICreatePostComment_Request,
   ): Promise<ICreatePostComment_Response> {
-    return await Promise.resolve(null);
+    return await this.repository.createPostComment(payload);
   }
 
   async createPostReaction(

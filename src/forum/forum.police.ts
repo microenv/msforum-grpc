@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { IPost } from 'msforum-grpc';
+import { IPost, IPostComment } from 'msforum-grpc';
 
 @Injectable()
 export class ForumPolice {
@@ -25,11 +25,29 @@ export class ForumPolice {
       excerpt,
       content,
       createdAt,
-      createdBy: createdBy ? String(createdBy) : null,
+      createdBy: createdBy || null,
       postState,
       postType,
       updatedAt,
       commentsCount,
     };
+  }
+
+  public sanitizePostComment({
+    id,
+    postId,
+    parentId,
+    createdBy,
+    content,
+    createdAt,
+  }: IPostComment): IPostComment {
+    return {
+      id,
+      postId,
+      parentId,
+      createdBy: createdBy || null,
+      content,
+      createdAt,
+    }
   }
 }
