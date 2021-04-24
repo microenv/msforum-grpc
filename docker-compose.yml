@@ -1,0 +1,26 @@
+version: '3.7'
+
+# @TODO
+# THIS FILE NEEDS TO BE UPDATED
+
+# services:
+#   msforum-grpc:
+#     build: .
+#     container_name: msforum-grpc-local
+#     ports:
+#       - 3011:3000
+#       - 3011:3000/udp
+#     # command: npm run start:dev
+#     env_file:
+#       - .env
+#     networks:
+#       - msforum_local
+
+#   dynamodb-local:
+#     image: amazon/dynamodb-local
+#     container_name: dynamodb-local
+#     ports:
+#       - 8000
+
+# networks:
+#   msforum_local:
