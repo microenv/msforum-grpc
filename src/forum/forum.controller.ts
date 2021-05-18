@@ -54,7 +54,6 @@ export class ForumController implements IForumClient {
   public getPost(
     @Payload() payload: IGetPost_Request,
   ): Promise<IGetPost_Response> {
-    console.log('--->>>> ', payload);
     return this.forumService.getPost(payload);
   }
 
