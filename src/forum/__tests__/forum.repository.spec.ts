@@ -9,6 +9,7 @@ import { ForumRepository } from "../forum.repository";
 interface IMocks {
   post: IPost;
   category: ICategory;
+  comment: IPostComment;
   posts: IPost[];
   categories: ICategory[];
   comments: IPostComment[];
@@ -35,6 +36,14 @@ const mocks: IMocks = {
     postsCount: 0,
     title: 'test-category-title',
     description: 'test-category-description',
+  },
+  comment: {
+    id: 'test-comment-id',
+    postId: 'test-comment-postId',
+    parentId: 'test-comment-parentId',
+    createdBy: 'test-comment-createdBy',
+    content: 'test-comment-content',
+    createdAt: 'test-comment-createdAt',
   },
   posts: [],
   categories: [],
@@ -205,6 +214,25 @@ describe('ForumRepository', () => {
     expect(dynamodbService.put).toHaveBeenCalledWith({
       TableName: TableName('posts'),
       Item: police.sanitizePost(response),
+    });
+  });
+
+  it('createPostComment', async () => {
+    const response = await repository.createPostComment(mocks.comment);
+
+    expect(response.id).toBeDefined();
+    expect(typeof response.createdAt).toStrictEqual('string');
+    expect(isNaN(new Date(response.createdAt).getTime())).toStrictEqual(false);
+    expect(response.postId).toStrictEqual(mocks.comment.postId);
+    expect(response.parentId).toStrictEqual(mocks.comment.parentId);
+    expect(response.createdBy).toStrictEqual(mocks.comment.createdBy);
+    expect(response.content).toStrictEqual(mocks.comment.content);
+
+    expect(dynamodbService.put).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.put).toHaveBeenCalledWith({
+      TableName: TableName('comments'),
+      Item: police.sanitizePostComment(response),
     });
   });
 });
