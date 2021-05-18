@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICategory, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
+import { ICategory, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
 import { ForumRepository } from '../forum.repository';
 import { ForumService } from '../forum.service';
 
@@ -52,6 +52,7 @@ describe('ForumService', () => {
       listPostsByCategoryId: jest.fn().mockReturnValue(mocks.posts),
       getPostById: jest.fn().mockReturnValue(mocks.post),
       listPostComments: jest.fn().mockReturnValue(mocks.comments),
+      createPost: jest.fn().mockReturnValue(mocks.post),
     } as any;
 
     const module: TestingModule = await Test.createTestingModule({
@@ -130,6 +131,20 @@ describe('ForumService', () => {
     expect(forumRepository.getPostById).toHaveBeenCalledWith(responseMock.post.id);
     expect(forumRepository.getCategoryById).toHaveBeenCalledWith(responseMock.post.categoryId);
     expect(forumRepository.listPostComments).toHaveBeenCalledWith(responseMock.post.id);
+
+    expect(response).toStrictEqual(responseMock);
+  });
+
+  it('createPost', async () => {
+    const payload: ICreatePost_Request = {
+      ...mocks.post,
+    };
+    const responseMock: ICreatePost_Response = mocks.post;
+    const response: ICreatePost_Response = await service.createPost(payload);
+
+    expect(forumRepository.createPost).toHaveBeenCalledTimes(1);
+
+    expect(forumRepository.createPost).toHaveBeenCalledWith(payload);
 
     expect(response).toStrictEqual(responseMock);
   });
