@@ -191,4 +191,20 @@ describe('ForumRepository', () => {
       Item: police.sanitizePost(response),
     });
   });
+
+  it('updatePost', async () => {
+    dynamodbService.get.mockReturnValue({ Item: mocks.post });
+
+    const response = await repository.updatePost(mocks.post);
+
+    expect(response).toStrictEqual(mocks.post);
+
+    expect(dynamodbService.get).toHaveBeenCalledTimes(1);
+    expect(dynamodbService.put).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.put).toHaveBeenCalledWith({
+      TableName: TableName('posts'),
+      Item: police.sanitizePost(response),
+    });
+  });
 });
