@@ -16,15 +16,6 @@ export class DynamodbService {
   private dbClient: DocumentClient;
 
   constructor() {
-    // const config: AWS.DynamoDB.Types.ClientConfiguration = {};
-
-    // if (process.env.DYNAMODB_ENDPOINT) {
-    //   config.endpoint = process.env.DYNAMODB_ENDPOINT;
-    //   console.log(`> Using endpoint local client: ${config.endpoint}`);
-    // }
-
-    console.log('config db---- ', process.env.DYNAMODB_ENDPOINT);
-
     this.dbClient = new AWS.DynamoDB.DocumentClient();
   }
 
