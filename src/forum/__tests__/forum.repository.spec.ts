@@ -9,6 +9,7 @@ import { ForumRepository } from "../forum.repository";
 interface IMocks {
   post: IPost;
   category: ICategory;
+  posts: IPost[];
   categories: ICategory[];
 }
 
@@ -34,6 +35,7 @@ const mocks: IMocks = {
     title: 'test-category-title',
     description: 'test-category-description',
   },
+  posts: [],
   categories: [],
 };
 
@@ -127,6 +129,25 @@ describe('ForumRepository', () => {
       KeyConditionExpression: 'parentId = :parentId',
       ExpressionAttributeValues: {
         ':parentId': categoryId,
+      },
+    });
+  });
+
+  it('listPostsByCategoryId', async () => {
+    const categoryId = mocks.category.id;
+
+    dynamodbService.query.mockReturnValue({ Items: mocks.posts });
+
+    expect(repository.listPostsByCategoryId(categoryId)).resolves.toStrictEqual(mocks.posts);
+
+    expect(dynamodbService.query).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.query).toHaveBeenCalledWith({
+      TableName: TableName('posts'),
+      IndexName: 'WithCategoryId',
+      KeyConditionExpression: 'categoryId = :categoryId',
+      ExpressionAttributeValues: {
+        ':categoryId': categoryId,
       },
     });
   });
