@@ -111,4 +111,23 @@ describe('ForumRepository', () => {
       },
     });
   });
+
+  it('listSubcategories', async () => {
+    const categoryId = mocks.category.id;
+
+    dynamodbService.query.mockReturnValue({ Items: mocks.categories });
+
+    expect(repository.listSubcategories(categoryId)).resolves.toStrictEqual(mocks.categories);
+
+    expect(dynamodbService.query).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.query).toHaveBeenCalledWith({
+      TableName: TableName('categories'),
+      IndexName: 'WithParentId',
+      KeyConditionExpression: 'parentId = :parentId',
+      ExpressionAttributeValues: {
+        ':parentId': categoryId,
+      },
+    });
+  });
 });

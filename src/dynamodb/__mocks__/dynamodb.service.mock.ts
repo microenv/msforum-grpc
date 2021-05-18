@@ -7,7 +7,7 @@ export class DynamodbServiceMock {
     return {
       get: this.dbClient_get,
       scan: this.dbClient_scan,
-      // query: this.dbClient_query,
+      query: this.dbClient_query,
     };
   }
 
@@ -34,6 +34,19 @@ export class DynamodbServiceMock {
       return;
     }
     const result = this.scan(payload);
+    callback(null, result);
+  }
+
+  dbClient_query = (
+    payload: any,
+    callback: (err: any, data: any) => void,
+    forceError: boolean = false,
+  ) => {
+    if (forceError) {
+      callback(new Error('test-error'), null);
+      return;
+    }
+    const result = this.query(payload);
     callback(null, result);
   }
 }
