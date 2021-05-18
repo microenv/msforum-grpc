@@ -49,7 +49,6 @@ export class ForumRepository {
 
   getPostById(postId: string): Promise<IPost> {
     return new Promise((resolve, reject) => {
-      console.log('------------------------ 1');
       this.dbClient().get(
         {
           TableName: TableName('posts'),
