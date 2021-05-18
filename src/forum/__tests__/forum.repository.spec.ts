@@ -19,7 +19,7 @@ const mocks: IMocks = {
   post: {
     id: 'test-post-id',
     categoryId: 'test-post-categoryId',
-    createdBy: 'test-post-createdBy',
+    createdBy: null,
     commentsCount: 1,
     postState: 'open',
     postType: 'post',
@@ -41,7 +41,7 @@ const mocks: IMocks = {
     id: 'test-comment-id',
     postId: 'test-comment-postId',
     parentId: 'test-comment-parentId',
-    createdBy: 'test-comment-createdBy',
+    createdBy: null,
     content: 'test-comment-content',
     createdAt: 'test-comment-createdAt',
   },

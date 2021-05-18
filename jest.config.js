@@ -22,6 +22,7 @@ module.exports = {
     "main.ts",
     '.module.ts',
     '.mock.ts',
+    '.options.ts',
   ],
   testEnvironment: "node",
   coverageThreshold: {

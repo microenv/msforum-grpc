@@ -13,6 +13,9 @@ export function requiredEnvs(envNames: string[]) {
     if (!process.env[name]) {
       console.error(`Environment variable missing: ${name}`);
       process.exit(1);
+      return false;
     }
   }
+
+  return true;
 }
