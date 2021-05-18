@@ -162,7 +162,6 @@ export class ForumRepository {
             reject(err);
             return;
           }
-          console.log('comments === ', data)
           resolve(data.Items as IPostComment[]);
         },
       );

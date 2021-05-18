@@ -2,7 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { ICategory, IPost, IPostComment } from "msforum-grpc";
 import { DynamodbService } from "src/dynamodb/dynamodb.service";
 import { TableName } from "src/dynamodb/dynamodb.utils";
-import { DynamodbServiceMock } from "src/dynamodb/__mocks__/dynamodb.service.mock";
+import { DynamodbServiceMock, ERRLEVEL } from "src/dynamodb/__mocks__/dynamodb.service.mock";
 import { ForumPolice } from "../forum.police";
 import { ForumRepository } from "../forum.repository";
 
@@ -86,6 +86,11 @@ describe('ForumRepository', () => {
     });
   });
 
+  it('getCategoryById with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.getCategoryById(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+  });
+
   it('getPostById', () => {
     const postId = mocks.post.id;
 
@@ -103,6 +108,11 @@ describe('ForumRepository', () => {
     });
   });
 
+  it('getPostById with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.getPostById(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+  });
+
   it('listMainCategories', () => {
     dynamodbService.scan.mockReturnValue({ Items: mocks.categories });
 
@@ -118,6 +128,11 @@ describe('ForumRepository', () => {
         ':empty': null,
       },
     });
+  });
+
+  it('listMainCategories with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.listMainCategories()).rejects.toEqual(dynamodbService.error);
   });
 
   it('listSubcategories', () => {
@@ -139,6 +154,11 @@ describe('ForumRepository', () => {
     });
   });
 
+  it('listSubcategories with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.listSubcategories(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+  });
+
   it('listPostsByCategoryId', () => {
     const categoryId = mocks.category.id;
 
@@ -156,6 +176,11 @@ describe('ForumRepository', () => {
         ':categoryId': categoryId,
       },
     });
+  });
+
+  it('listPostsByCategoryId with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.listPostsByCategoryId(mocks.category.id)).rejects.toEqual(dynamodbService.error);
   });
 
   it('listPostComments', () => {
@@ -176,6 +201,11 @@ describe('ForumRepository', () => {
       },
       Select: 'ALL_ATTRIBUTES',
     });
+  });
+
+  it('listPostComments with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.listPostComments(mocks.post.id)).rejects.toEqual(dynamodbService.error);
   });
 
   it('createPost', async () => {
@@ -201,6 +231,11 @@ describe('ForumRepository', () => {
     });
   });
 
+  it('createPost with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.createPost(mocks.post)).rejects.toEqual(dynamodbService.error);
+  });
+
   it('updatePost', async () => {
     dynamodbService.get.mockReturnValue({ Item: mocks.post });
 
@@ -215,6 +250,13 @@ describe('ForumRepository', () => {
       TableName: TableName('posts'),
       Item: police.sanitizePost(response),
     });
+  });
+
+  it('updatePost with error', () => {
+    dynamodbService.get.mockReturnValue({ Item: mocks.post });
+
+    dynamodbService.setErrorLevel(ERRLEVEL.put);
+    expect(repository.updatePost(mocks.post)).rejects.toEqual(dynamodbService.error);
   });
 
   it('createPostComment', async () => {
@@ -234,5 +276,10 @@ describe('ForumRepository', () => {
       TableName: TableName('comments'),
       Item: police.sanitizePostComment(response),
     });
+  });
+
+  it('createPostComment with error', () => {
+    dynamodbService.setErrorLevel(ERRLEVEL.all);
+    expect(repository.createPostComment(mocks.comment)).rejects.toEqual(dynamodbService.error);
   });
 });
