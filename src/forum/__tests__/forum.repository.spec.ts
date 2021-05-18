@@ -9,6 +9,7 @@ import { ForumRepository } from "../forum.repository";
 interface IMocks {
   post: IPost;
   category: ICategory;
+  categories: ICategory[];
 }
 
 const mocks: IMocks = {
@@ -33,6 +34,7 @@ const mocks: IMocks = {
     title: 'test-category-title',
     description: 'test-category-description',
   },
+  categories: [],
 };
 
 describe('ForumRepository', () => {
@@ -89,6 +91,23 @@ describe('ForumRepository', () => {
       TableName: TableName('posts'),
       Key: {
         id: postId,
+      },
+    });
+  });
+
+  it('listMainCategories', async () => {
+    dynamodbService.scan.mockReturnValue({ Items: mocks.categories });
+
+    expect(repository.listMainCategories()).resolves.toStrictEqual(mocks.categories);
+
+    expect(dynamodbService.scan).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.scan).toHaveBeenCalledWith({
+      TableName: TableName('categories'),
+      FilterExpression:
+        'attribute_not_exists(parentId) or parentId = :empty',
+      ExpressionAttributeValues: {
+        ':empty': null,
       },
     });
   });
