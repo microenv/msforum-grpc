@@ -67,6 +67,7 @@ export class ForumService {
       post,
       category,
       comments,
+      // @TODO ~ reactions
       reactions: [],
     });
   }

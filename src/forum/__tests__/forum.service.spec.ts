@@ -1,12 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICategory, IGetCategory_Request, IGetCategory_Response, IListPosts_Request, IListPosts_Response, IPost } from 'msforum-grpc';
+import { ICategory, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
 import { ForumRepository } from '../forum.repository';
 import { ForumService } from '../forum.service';
 
 interface IMocks {
   category: ICategory;
+  post: IPost;
   posts: IPost[];
   subcategories: ICategory[];
+  comments: IPostComment[];
+  reactions: IPostReaction[];
 }
 
 const mocks: IMocks = {
@@ -18,8 +21,23 @@ const mocks: IMocks = {
     title: 'test-category-title',
     description: 'test-category-description',
   },
+  post: {
+    id: 'test-post-id',
+    categoryId: 'test-post-categoryId',
+    createdBy: 'test-post-createdBy',
+    commentsCount: 1,
+    postState: 'open',
+    postType: 'post',
+    title: 'test-post-title',
+    content: 'test-post-content',
+    excerpt: 'test-post-excerpt',
+    createdAt: 'test-post-createdAt',
+    updatedAt: 'test-post-updatedAt',
+  },
   posts: [],
   subcategories: [],
+  comments: [],
+  reactions: [],
 };
 
 describe('ForumService', () => {
@@ -32,6 +50,8 @@ describe('ForumService', () => {
       getCategoryById: jest.fn().mockReturnValue(mocks.category),
       listSubcategories: jest.fn().mockReturnValue(mocks.subcategories),
       listPostsByCategoryId: jest.fn().mockReturnValue(mocks.posts),
+      getPostById: jest.fn().mockReturnValue(mocks.post),
+      listPostComments: jest.fn().mockReturnValue(mocks.comments),
     } as any;
 
     const module: TestingModule = await Test.createTestingModule({
@@ -85,7 +105,31 @@ describe('ForumService', () => {
     const response: IListPosts_Response = await service.listPosts(payload);
     
     expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledTimes(1);
+
     expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledWith(payload.categoryId);
+
+    expect(response).toStrictEqual(responseMock);
+  });
+
+  it('getPost', async () => {
+    const payload: IGetPost_Request = {
+      postId: mocks.post.id,
+    };
+    const responseMock: IGetPost_Response = {
+      post: mocks.post,
+      category: mocks.category,
+      comments: mocks.comments,
+      reactions: mocks.reactions,
+    };
+    const response: IGetPost_Response = await service.getPost(payload);
+    
+    expect(forumRepository.getPostById).toHaveBeenCalledTimes(1);
+    expect(forumRepository.getCategoryById).toHaveBeenCalledTimes(1);
+    expect(forumRepository.listPostComments).toHaveBeenCalledTimes(1);
+
+    expect(forumRepository.getPostById).toHaveBeenCalledWith(responseMock.post.id);
+    expect(forumRepository.getCategoryById).toHaveBeenCalledWith(responseMock.post.categoryId);
+    expect(forumRepository.listPostComments).toHaveBeenCalledWith(responseMock.post.id);
 
     expect(response).toStrictEqual(responseMock);
   });
