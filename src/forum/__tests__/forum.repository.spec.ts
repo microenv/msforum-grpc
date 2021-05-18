@@ -44,25 +44,20 @@ const mocks: IMocks = {
 describe('ForumRepository', () => {
   let repository: ForumRepository;
   let dynamodbService: DynamodbServiceMock;
-  let forumPolice: ForumPolice;
+  let police: ForumPolice;
 
   beforeEach(async () => {
     dynamodbService = new DynamodbServiceMock();
-    
-    forumPolice = {
-      //
-    } as any;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [ForumRepository, DynamodbService, ForumPolice],
     })
       .overrideProvider(DynamodbService)
       .useValue(dynamodbService)
-      .overrideProvider(ForumPolice)
-      .useValue(forumPolice)
       .compile();
 
     repository = module.get<ForumRepository>(ForumRepository);
+    police = module.get<ForumPolice>(ForumPolice);
   });
 
   it('getCategoryById', () => {
@@ -171,6 +166,29 @@ describe('ForumRepository', () => {
         ':postId': postId,
       },
       Select: 'ALL_ATTRIBUTES',
+    });
+  });
+
+  it('createPost', async () => {
+    const response = await repository.createPost(mocks.post);
+
+    expect(response.id).toBeDefined();
+    expect(response.commentsCount).toStrictEqual(0);
+    expect(typeof response.createdAt).toStrictEqual('string');
+    expect(isNaN(new Date(response.createdAt).getTime())).toStrictEqual(false);
+    expect(response.postType).toStrictEqual('post');
+    expect(response.postState).toStrictEqual('open');
+    expect(response.createdBy).toStrictEqual(mocks.post.createdBy);
+    expect(response.title).toStrictEqual(mocks.post.title);
+    expect(response.excerpt).toStrictEqual(mocks.post.excerpt);
+    expect(response.content).toStrictEqual(mocks.post.content);
+    expect(response.categoryId).toStrictEqual(mocks.post.categoryId);
+
+    expect(dynamodbService.put).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.put).toHaveBeenCalledWith({
+      TableName: TableName('posts'),
+      Item: police.sanitizePost(response),
     });
   });
 });
