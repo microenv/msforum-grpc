@@ -20,6 +20,8 @@ module.exports = {
   coveragePathIgnorePatterns: [
     ".d.ts",
     "main.ts",
+    '.module.ts',
+    '.mock.ts',
   ],
   testEnvironment: "node",
   coverageThreshold: {
