@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { ICategory, IPost } from "msforum-grpc";
+import { ICategory, IPost, IPostComment } from "msforum-grpc";
 import { DynamodbService } from "src/dynamodb/dynamodb.service";
 import { TableName } from "src/dynamodb/dynamodb.utils";
 import { DynamodbServiceMock } from "src/dynamodb/__mocks__/dynamodb.service.mock";
@@ -11,6 +11,7 @@ interface IMocks {
   category: ICategory;
   posts: IPost[];
   categories: ICategory[];
+  comments: IPostComment[];
 }
 
 const mocks: IMocks = {
@@ -37,6 +38,7 @@ const mocks: IMocks = {
   },
   posts: [],
   categories: [],
+  comments: [],
 };
 
 describe('ForumRepository', () => {
@@ -63,7 +65,7 @@ describe('ForumRepository', () => {
     repository = module.get<ForumRepository>(ForumRepository);
   });
 
-  it('getCategoryById', async () => {
+  it('getCategoryById', () => {
     const categoryId = mocks.category.id;
     
     dynamodbService.get.mockReturnValue({ Item: mocks.category });
@@ -80,7 +82,7 @@ describe('ForumRepository', () => {
     });
   });
 
-  it('getPostById', async () => {
+  it('getPostById', () => {
     const postId = mocks.post.id;
 
     dynamodbService.get.mockReturnValue({ Item: mocks.post });
@@ -97,7 +99,7 @@ describe('ForumRepository', () => {
     });
   });
 
-  it('listMainCategories', async () => {
+  it('listMainCategories', () => {
     dynamodbService.scan.mockReturnValue({ Items: mocks.categories });
 
     expect(repository.listMainCategories()).resolves.toStrictEqual(mocks.categories);
@@ -114,7 +116,7 @@ describe('ForumRepository', () => {
     });
   });
 
-  it('listSubcategories', async () => {
+  it('listSubcategories', () => {
     const categoryId = mocks.category.id;
 
     dynamodbService.query.mockReturnValue({ Items: mocks.categories });
@@ -133,7 +135,7 @@ describe('ForumRepository', () => {
     });
   });
 
-  it('listPostsByCategoryId', async () => {
+  it('listPostsByCategoryId', () => {
     const categoryId = mocks.category.id;
 
     dynamodbService.query.mockReturnValue({ Items: mocks.posts });
@@ -149,6 +151,26 @@ describe('ForumRepository', () => {
       ExpressionAttributeValues: {
         ':categoryId': categoryId,
       },
+    });
+  });
+
+  it('listPostComments', () => {
+    const postId = mocks.category.id;
+
+    dynamodbService.query.mockReturnValue({ Items: mocks.comments });
+
+    expect(repository.listPostComments(postId)).resolves.toStrictEqual(mocks.comments);
+
+    expect(dynamodbService.query).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.query).toHaveBeenCalledWith({
+      TableName: TableName('comments'),
+      IndexName: 'WithPostId',
+      KeyConditionExpression: 'postId = :postId',
+      ExpressionAttributeValues: {
+        ':postId': postId,
+      },
+      Select: 'ALL_ATTRIBUTES',
     });
   });
 });
