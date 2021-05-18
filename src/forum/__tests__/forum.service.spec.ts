@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICategory, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
+import { ICategory, ICreatePostComment_Request, ICreatePostComment_Response, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
 import { ForumRepository } from '../forum.repository';
 import { ForumService } from '../forum.service';
 
 interface IMocks {
   category: ICategory;
   post: IPost;
+  comment: IPostComment;
+
   posts: IPost[];
   subcategories: ICategory[];
   comments: IPostComment[];
@@ -34,6 +36,14 @@ const mocks: IMocks = {
     createdAt: 'test-post-createdAt',
     updatedAt: 'test-post-updatedAt',
   },
+  comment: {
+    id: 'test-comment-id',
+    postId: 'test-comment-postId',
+    parentId: 'test-comment-parentId',
+    createdBy: 'test-comment-createdBy',
+    content: 'test-comment-content',
+    createdAt: 'test-comment-createdAt',
+  },
   posts: [],
   subcategories: [],
   comments: [],
@@ -53,6 +63,7 @@ describe('ForumService', () => {
       getPostById: jest.fn().mockReturnValue(mocks.post),
       listPostComments: jest.fn().mockReturnValue(mocks.comments),
       createPost: jest.fn().mockReturnValue(mocks.post),
+      createPostComment: jest.fn().mockReturnValue(mocks.comment),
     } as any;
 
     const module: TestingModule = await Test.createTestingModule({
@@ -136,15 +147,25 @@ describe('ForumService', () => {
   });
 
   it('createPost', async () => {
-    const payload: ICreatePost_Request = {
-      ...mocks.post,
-    };
+    const payload: ICreatePost_Request = mocks.post;
     const responseMock: ICreatePost_Response = mocks.post;
     const response: ICreatePost_Response = await service.createPost(payload);
 
     expect(forumRepository.createPost).toHaveBeenCalledTimes(1);
 
     expect(forumRepository.createPost).toHaveBeenCalledWith(payload);
+
+    expect(response).toStrictEqual(responseMock);
+  });
+
+  it('createPostComment', async () => {
+    const payload: ICreatePostComment_Request = mocks.comment;
+    const responseMock: ICreatePostComment_Response = mocks.comment;
+    const response: ICreatePostComment_Response = await service.createPostComment(payload);
+
+    expect(forumRepository.createPostComment).toHaveBeenCalledTimes(1);
+
+    expect(forumRepository.createPostComment).toHaveBeenCalledWith(payload);
 
     expect(response).toStrictEqual(responseMock);
   });
