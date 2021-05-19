@@ -7,21 +7,22 @@ const mocks = {
   mainCategories: [],
 };
 
-const forumService = {
-  listMainCategories: () => mocks.mainCategories,
-  getCategory: (payload) => payload,
-  listPosts: (payload) => payload,
-  getPost: (payload) => payload,
-  createPost: (payload) => payload,
-  createPostComment: (payload) => payload,
-  createPostReaction: (payload) => payload,
-  updatePost: (payload) => payload,
-};
-
 describe('ForumController', () => {
   let controller: ForumController;
+  let forumService;
 
   beforeEach(async () => {
+    forumService = {
+      listMainCategories: jest.fn().mockResolvedValue(mocks.mainCategories),
+      getCategory: jest.fn(async (payload) => payload),
+      listPosts: jest.fn(async (payload) => payload),
+      getPost: jest.fn(async (payload) => payload),
+      createPost: jest.fn(async (payload) => payload),
+      createPostComment: jest.fn(async (payload) => payload),
+      createPostReaction: jest.fn(async (payload) => payload),
+      updatePost: jest.fn(async (payload) => payload),
+    };
+
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ForumController],
       providers: [ForumService],
@@ -37,32 +38,36 @@ describe('ForumController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('listMainCategories', async () => {
-    expect(await controller.listMainCategories()).toEqual(mocks.mainCategories);
+  it('listMainCategories', () => {
+    expect(controller.listMainCategories()).resolves.toStrictEqual(mocks.mainCategories);
+    expect(forumService.listMainCategories).toHaveBeenCalledTimes(1);
   });
 
-  it('getCategory', async () => {
+  it('getCategory', () => {
     const payload: IGetCategory_Request = {
       categoryId: 'test',
     };
-    expect(await controller.getCategory(payload)).toStrictEqual(payload);
+    expect(controller.getCategory(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.getCategory).toHaveBeenCalledTimes(1);
   });
 
-  it('listPosts', async () => {
+  it('listPosts', () => {
     const payload: IListPosts_Request = {
       categoryId: 'test',
     };
-    expect(await controller.listPosts(payload)).toStrictEqual(payload);
+    expect(controller.listPosts(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.listPosts).toHaveBeenCalledTimes(1);
   });
 
-  it('getPost', async () => {
+  it('getPost', () => {
     const payload: IGetPost_Request = {
       postId: 'test',
     };
-    expect(await controller.getPost(payload)).toStrictEqual(payload);
+    expect(controller.getPost(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.getPost).toHaveBeenCalledTimes(1);
   });
 
-  it('createPost', async () => {
+  it('createPost', () => {
     const payload: ICreatePost_Request = {
       categoryId: 'test-categoryId',
       createdBy: 'test-createdBy',
@@ -70,30 +75,33 @@ describe('ForumController', () => {
       excerpt: 'test-excerpt',
       title: 'test-title',
     };
-    expect(await controller.createPost(payload)).toStrictEqual(payload);
+    expect(controller.createPost(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.createPost).toHaveBeenCalledTimes(1);
   });
 
-  it('createPostComment', async () => {
+  it('createPostComment', () => {
     const payload: ICreatePostComment_Request = {
       postId: 'test-postId',
       parentId: 'test-parentId',
       createdBy: 'test-createdBy',
       content: 'test-content',
     };
-    expect(await controller.createPostComment(payload)).toStrictEqual(payload);
+    expect(controller.createPostComment(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.createPostComment).toHaveBeenCalledTimes(1);
   });
 
-  it('createPostReaction', async () => {
+  it('createPostReaction', () => {
     const payload: ICreatePostReaction_Request = {
       postId: 'test-postId',
       commentId: 'test-commentId',
       createdBy: 'test-createdBy',
       reactType: 'test-reactType',
     };
-    expect(await controller.createPostReaction(payload)).toStrictEqual(payload);
+    expect(controller.createPostReaction(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.createPostReaction).toHaveBeenCalledTimes(1);
   });
 
-  it('updatePost', async () => {
+  it('updatePost', () => {
     const payload: IUpdatePost_Request = {
       id: 'test-id',
       createdBy: 'test-createdBy',
@@ -103,6 +111,7 @@ describe('ForumController', () => {
       postType: 'post',
       title: 'test-title',
     };
-    expect(await controller.updatePost(payload)).toStrictEqual(payload);
+    expect(controller.updatePost(payload)).resolves.toStrictEqual(payload);
+    expect(forumService.updatePost).toHaveBeenCalledTimes(1);
   });
 });
