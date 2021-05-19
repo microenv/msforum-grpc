@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICategory, ICreatePostComment_Request, ICreatePostComment_Response, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction, IUpdatePost_Request, IUpdatePost_Response } from 'msforum-grpc';
+import { ICategory, ICreatePostComment_Request, ICreatePostComment_Response, ICreatePostReaction_Request, ICreatePostReaction_Response, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction, IUpdatePost_Request, IUpdatePost_Response } from 'msforum-grpc';
 import { ForumRepository } from '../forum.repository';
 import { ForumService } from '../forum.service';
 
@@ -7,6 +7,7 @@ interface IMocks {
   category: ICategory;
   post: IPost;
   comment: IPostComment;
+  reaction: IPostReaction;
 
   posts: IPost[];
   subcategories: ICategory[];
@@ -44,6 +45,14 @@ const mocks: IMocks = {
     content: 'test-comment-content',
     createdAt: 'test-comment-createdAt',
   },
+  reaction: {
+    id: 'test-reaction-id',
+    postId: 'test-reaction-postId',
+    commentId: 'test-reaction-commentId',
+    reactType: 'test-reaction-reactType',
+    createdAt: 'test-reaction-createdAt',
+    createdBy: 'test-reaction-createdBy',
+  },
   posts: [],
   subcategories: [],
   comments: [],
@@ -64,6 +73,7 @@ describe('ForumService', () => {
       listPostComments: jest.fn().mockReturnValue(mocks.comments),
       createPost: jest.fn().mockReturnValue(mocks.post),
       createPostComment: jest.fn().mockReturnValue(mocks.comment),
+      createPostReaction: jest.fn().mockReturnValue(mocks.reaction),
       updatePost: jest.fn().mockReturnValue(mocks.post),
     } as any;
 
@@ -172,7 +182,15 @@ describe('ForumService', () => {
   });
 
   it('createPostReaction', async() => {
-    // @TODO
+    const payload: ICreatePostReaction_Request = mocks.reaction;
+    const responseMock: ICreatePostReaction_Response = mocks.reaction;
+    const response: ICreatePostReaction_Response = await service.createPostReaction(payload);
+
+    expect(forumRepository.createPostReaction).toHaveBeenCalledTimes(1);
+
+    expect(forumRepository.createPostReaction).toHaveBeenCalledWith(payload);
+
+    expect(response).toStrictEqual(responseMock);
   });
 
   it('updatePost', async() => {

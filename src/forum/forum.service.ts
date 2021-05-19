@@ -87,7 +87,7 @@ export class ForumService {
   async createPostReaction(
     payload: ICreatePostReaction_Request,
   ): Promise<ICreatePostReaction_Response> {
-    return await Promise.resolve(null);
+    return await this.repository.createPostReaction(payload);
   }
 
   async updatePost(

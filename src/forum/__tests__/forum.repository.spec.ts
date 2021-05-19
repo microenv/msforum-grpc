@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { ICategory, IPost, IPostComment } from "msforum-grpc";
+import { ICategory, IPost, IPostComment, IPostReaction } from "msforum-grpc";
 import { DynamodbService } from "src/dynamodb/dynamodb.service";
 import { TableName } from "src/dynamodb/dynamodb.utils";
 import { DynamodbServiceMock, ERRLEVEL } from "src/dynamodb/__mocks__/dynamodb.service.mock";
@@ -10,6 +10,7 @@ interface IMocks {
   post: IPost;
   category: ICategory;
   comment: IPostComment;
+  reaction: IPostReaction;
   posts: IPost[];
   categories: ICategory[];
   comments: IPostComment[];
@@ -44,6 +45,14 @@ const mocks: IMocks = {
     createdBy: null,
     content: 'test-comment-content',
     createdAt: 'test-comment-createdAt',
+  },
+  reaction: {
+    id: 'test-reaction-id',
+    postId: 'test-reaction-postId',
+    commentId: 'test-reaction-commentId',
+    reactType: 'test-reaction-reactType',
+    createdAt: 'test-reaction-createdAt',
+    createdBy: 'test-reaction-createdBy',
   },
   posts: [],
   categories: [],
@@ -281,5 +290,25 @@ describe('ForumRepository', () => {
   it('createPostComment with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
     expect(repository.createPostComment(mocks.comment)).rejects.toEqual(dynamodbService.error);
+  });
+
+  it('createPostReaction', async () => {
+    const response = await repository.createPostReaction(mocks.reaction);
+
+    expect(response.id).toBeDefined();
+    expect(typeof response.createdAt).toStrictEqual('string');
+    expect(isNaN(new Date(response.createdAt).getTime())).toStrictEqual(false);
+    expect(response.postId).toStrictEqual(mocks.reaction.postId);
+    expect(response.commentId).toStrictEqual(mocks.reaction.commentId);
+    expect(response.reactType).toStrictEqual(mocks.reaction.reactType);
+    expect(response.createdBy).toStrictEqual(mocks.reaction.createdBy);
+    expect(response.createdAt).toBeDefined();
+
+    expect(dynamodbService.put).toHaveBeenCalledTimes(1);
+
+    expect(dynamodbService.put).toHaveBeenCalledWith({
+      TableName: TableName('reactions'),
+      Item: police.sanitizePostReaction(response),
+    });
   });
 });

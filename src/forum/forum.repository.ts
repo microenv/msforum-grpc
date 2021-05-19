@@ -6,9 +6,12 @@ import {
   ICategory,
   ICreatePostComment_Request,
   ICreatePostComment_Response,
+  ICreatePostReaction_Request,
+  ICreatePostReaction_Response,
   ICreatePost_Request,
   IPost,
   IPostComment,
+  IPostReaction,
   IUpdatePost_Request,
 } from 'msforum-grpc';
 import { DynamodbService } from 'src/dynamodb/dynamodb.service';
@@ -262,6 +265,39 @@ export class ForumRepository {
             return;
           }
           resolve(comment);
+        },
+      );
+    });
+  }
+
+  createPostReaction(
+    payload: ICreatePostReaction_Request,
+  ): Promise<ICreatePostReaction_Response> {
+    return new Promise((resolve, reject) => {
+      const { postId, commentId, reactType, createdBy } = payload;
+
+      const reaction: IPostReaction = {
+        id: uuidv4(),
+        postId,
+        commentId,
+        reactType,
+        createdBy,
+        createdAt: new Date().toISOString(),
+      };
+
+      const Item = this.police.sanitizePostReaction(reaction);
+
+      this.dbClient().put(
+        {
+          TableName: TableName('reactions'),
+          Item,
+        },
+        (err: AWSError) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(reaction);
         },
       );
     });

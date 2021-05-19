@@ -122,7 +122,7 @@ declare module 'msforum-grpc' {
   export interface IPostReaction {
     id: string;
     postId: string;
-    parentId: string;
+    commentId: string;
     createdBy: string;
     createdAt: string;
     reactType: string;
