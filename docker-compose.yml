@@ -1,26 +1,38 @@
 version: '3.7'
 
-# @TODO
-# THIS FILE NEEDS TO BE UPDATED
+services:
+  msforum-grpc-local:
+    build: .
+    container_name: msforum-grpc-local
+    user: ${USER_ID}:${GROUP_ID}
+    environment:
+      HOME: /tmp/app/ # Set homedir to avoid permission issues
+    env_file:
+      - .env
+    restart: unless-stopped
+    ports:
+      - 3011:3000
+      - 3011:3000/udp
+    # command: npm run start:dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    networks:
+      - msforum_network_local
 
-# services:
-#   msforum-grpc:
-#     build: .
-#     container_name: msforum-grpc-local
-#     ports:
-#       - 3011:3000
-#       - 3011:3000/udp
-#     # command: npm run start:dev
-#     env_file:
-#       - .env
-#     networks:
-#       - msforum_local
+  msforum-dynamodb-local:
+    image: amazon/dynamodb-local
+    container_name: msforum-dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
+    ports:
+      - 8000
+    volumes:
+      - msforum_dynamodb_local:/data
+    networks:
+      - msforum_network_local
 
-#   dynamodb-local:
-#     image: amazon/dynamodb-local
-#     container_name: dynamodb-local
-#     ports:
-#       - 8000
+volumes:
+  msforum_dynamodb_local:
 
-# networks:
-#   msforum_local:
+networks:
+  msforum_network_local:
