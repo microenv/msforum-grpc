@@ -22,7 +22,8 @@
     "cov:open": "npx http-server -c-1 -o coverage/lcov-report",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "doc": "npx @compodoc/compodoc -p tsconfig.json -s"
+    "doc": "npx @compodoc/compodoc -p tsconfig.json -s",
+    "migrate": "ts-node -r tsconfig-paths/register -- src/dynamodb/migrations.ts"
   },
   "dependencies": {
     "@aws/dynamodb-data-mapper": "^0.7.3",
