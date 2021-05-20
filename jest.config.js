@@ -18,11 +18,12 @@ module.exports = {
   ],
   coverageDirectory: "../coverage",
   coveragePathIgnorePatterns: [
-    ".d.ts",
-    "main.ts",
+    '.d.ts',
+    'main.ts',
     '.module.ts',
     '.mock.ts',
     '.options.ts',
+    'migrations.ts',
   ],
   testEnvironment: "node",
   coverageThreshold: {
