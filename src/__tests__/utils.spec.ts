@@ -18,6 +18,12 @@ describe('utils', () => {
 
     const value3 = defaultValue('', 'defaultValue', true);
     expect(value3).toStrictEqual('');
+
+    const value4 = defaultValue(undefined, 'defaultValue', true);
+    expect(value4).toStrictEqual('defaultValue');
+
+    const value5 = defaultValue(undefined, 'defaultValue', false);
+    expect(value5).toStrictEqual('defaultValue');
   });
 
   it('requiredEnvs', () => {

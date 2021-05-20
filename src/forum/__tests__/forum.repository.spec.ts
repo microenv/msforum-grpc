@@ -268,6 +268,15 @@ describe('ForumRepository', () => {
     expect(repository.updatePost(mocks.post)).rejects.toEqual(dynamodbService.error);
   });
 
+  it('updatePost with invalid author', () => {
+    dynamodbService.get.mockReturnValue({ Item: mocks.post });
+
+    dynamodbService.setErrorLevel(ERRLEVEL.put);
+    const invalidPost = { ...mocks.post, createdBy: 'invalid-author' };
+    const error = new Error(`Invalid author`);
+    expect(repository.updatePost(invalidPost)).rejects.toEqual(error);
+  });
+
   it('createPostComment', async () => {
     const response = await repository.createPostComment(mocks.comment);
 
