@@ -118,6 +118,7 @@ message PostReaction {
 // Category
 
 message CategoryList {
+  // @TODO ~ remove this success
   bool success = 1;
   repeated Category categories = 2;
 }

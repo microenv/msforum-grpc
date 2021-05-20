@@ -8,13 +8,24 @@ export enum ERRLEVEL {
 }
 
 export class DynamodbServiceMock {
-  get: jest.Mock = jest.fn();
-  scan: jest.Mock = jest.fn();
-  query: jest.Mock = jest.fn();
-  put: jest.Mock = jest.fn();
+  get: jest.Mock;
+  scan: jest.Mock;
+  query: jest.Mock;
+  put: jest.Mock;
   error: Error = new Error('test-error');
 
   private _errorLevel: ERRLEVEL = ERRLEVEL.none;
+
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.get = jest.fn();
+    this.scan = jest.fn();
+    this.query = jest.fn();
+    this.put = jest.fn();
+  }
 
   getDBClient() {
     return {
