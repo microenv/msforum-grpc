@@ -1,4 +1,8 @@
 {
+  "moduleDirectories": [
+    "../node_modules",
+    "../"
+  ],
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": ".",
   "testEnvironment": "node",

@@ -5,6 +5,7 @@ syntax = "proto3";
 package forum;
 
 service ForumService {
+  rpc Ping (google.protobuf.Empty) returns (Pong) {}
   rpc ListMainCategories (google.protobuf.Empty) returns (CategoryList) {}
   // rpc ListCategories (ListCategories_Request) returns (CategoryList) {}
   rpc GetCategory (GetCategory_Request) returns (CategoryFullData) {}
@@ -16,6 +17,13 @@ service ForumService {
   rpc CreatePostComment (CreatePostComment_Request) returns (PostComment) {}
   rpc CreatePostReaction (CreatePostReaction_Request) returns (PostReaction) {}
   rpc UpdatePost (UpdatePost_Request) returns (Post) {}
+}
+
+// -----------------------------
+// Ping
+
+message Pong {
+  string ping = 1;
 }
 
 // -----------------------------

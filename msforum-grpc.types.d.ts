@@ -1,5 +1,9 @@
 declare module 'msforum-grpc' {
   export interface IForumClient {
+    ping: (
+      payload: unknown,
+    ) => IPing_Response;
+
     listMainCategories: (
       payload: unknown,
     ) => Promise<IListMainCategories_Response>;
@@ -38,6 +42,10 @@ declare module 'msforum-grpc' {
   export type ICreatePostComment_Response = IPostComment;
   export type ICreatePostReaction_Response = IPostReaction;
   export type IUpdatePost_Response = IPost;
+
+  export interface IPing_Response {
+    ping: 'pong';
+  }
 
   // -----------------------------
   // Post

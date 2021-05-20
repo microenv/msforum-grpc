@@ -11,11 +11,17 @@ export function defaultValue(
 export function requiredEnvs(envNames: string[]) {
   for (const name of envNames) {
     if (!process.env[name]) {
-      console.error(`Environment variable missing: ${name}`);
-      process.exit(1);
-      return false;
+      throw new Error(`Environment variable missing: ${name}`);
     }
   }
 
   return true;
+}
+
+export function delayMs(ms: number = 100) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(null);
+    }, ms);
+  });
 }

@@ -16,6 +16,7 @@ import {
   IListMainCategories_Response,
   IListPosts_Request,
   IListPosts_Response,
+  IPing_Response,
   IUpdatePost_Request,
   IUpdatePost_Response,
 } from 'msforum-grpc';
@@ -23,6 +24,11 @@ import {
 @Controller()
 export class ForumController implements IForumClient {
   constructor(private readonly forumService: ForumService) {}
+
+  @GrpcMethod('ForumService')
+  public ping(): IPing_Response {
+    return { ping: 'pong' };
+  }
 
   @GrpcMethod('ForumService')
   public listMainCategories(): Promise<IListMainCategories_Response> {

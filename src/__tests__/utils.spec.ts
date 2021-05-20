@@ -1,4 +1,4 @@
-import { defaultValue, requiredEnvs } from "src/utils";
+import { defaultValue, delayMs, requiredEnvs } from "src/utils";
 
 // jest.mock('console', () => ({
 //   error: jest.fn(),
@@ -34,14 +34,10 @@ describe('utils', () => {
   });
 
   it('requiredEnvs with error', () => {
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation((() => {}) as any);
-    const processExitSpy = jest.spyOn(process, 'exit').mockImplementation((() => {}) as any);
+    expect(() => requiredEnvs(['x', 'y', 'z'])).toThrow();
+  });
 
-    expect(requiredEnvs(['x', 'y', 'z'])).toStrictEqual(false);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(`Environment variable missing: x`);
-    expect(processExitSpy).toHaveBeenCalledWith(1);
-
-    consoleErrorSpy.mockRestore();
-    processExitSpy.mockRestore();
+  it('delayMs', () => {
+    expect(delayMs(1)).resolves.toBeFalsy();
   });
 });
