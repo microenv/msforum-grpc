@@ -4,10 +4,6 @@ import { ForumModule } from './forum/forum.module';
 import { DynamodbModule } from './dynamodb/dynamodb.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    DynamodbModule,
-    ForumModule,
-  ],
+  imports: [ConfigModule, DynamodbModule, ForumModule],
 })
 export class AppModule {}

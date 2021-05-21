@@ -6,12 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "generate": "yarn generate:proto",
-    "generate:proto": "$(npm bin)/proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=grpc --outDir=generated/proto/ src/grpc.proto",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "generate:doc": "npx @compodoc/compodoc -p tsconfig.json -s",
     "start:dev": "rm -rf dist/ && NODE_ENV=local nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -24,7 +23,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:db:docker": "docker exec msforum-grpc-local sh -c 'cd /app && yarn test:db:local'",
     "test:db:local": "jest --config ./test/jest-db.json",
-    "doc": "npx @compodoc/compodoc -p tsconfig.json -s",
     "migrate:docker": "docker exec msforum-grpc-local sh -c 'cd /app && yarn migrate:local'",
     "migrate:local": "ts-node -r tsconfig-paths/register -- src/dynamodb/migrations.ts"
   },

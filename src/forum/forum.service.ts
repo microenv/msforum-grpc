@@ -2,7 +2,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@nestjs/common';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
-import { ICategory, IGetCategory_Request, IGetCategory_Response, IPost, IPostType } from 'msforum-grpc';
+import {
+  ICategory,
+  IGetCategory_Request,
+  IGetCategory_Response,
+  IPost,
+  IPostType,
+} from 'msforum-grpc';
 import {
   ICreatePostComment_Request,
   ICreatePostComment_Response,
@@ -22,9 +28,7 @@ import { ForumRepository } from './forum.repository';
 
 @Injectable()
 export class ForumService {
-  constructor(
-    private readonly repository: ForumRepository,
-  ) {}
+  constructor(private readonly repository: ForumRepository) {}
 
   async listMainCategories(): Promise<IListMainCategories_Response> {
     const categories = await this.repository.listMainCategories();
@@ -38,8 +42,12 @@ export class ForumService {
     payload: IGetCategory_Request,
   ): Promise<IGetCategory_Response> {
     const category = await this.repository.getCategoryById(payload.categoryId);
-    const subcategories = await this.repository.listSubcategories(String(category.id));
-    const posts = await this.repository.listPostsByCategoryId(String(category.id));
+    const subcategories = await this.repository.listSubcategories(
+      String(category.id),
+    );
+    const posts = await this.repository.listPostsByCategoryId(
+      String(category.id),
+    );
 
     return await Promise.resolve({
       category,
@@ -49,16 +57,16 @@ export class ForumService {
   }
 
   async listPosts(payload: IListPosts_Request): Promise<IListPosts_Response> {
-    const posts = await this.repository.listPostsByCategoryId(String(payload.categoryId));
-    
+    const posts = await this.repository.listPostsByCategoryId(
+      String(payload.categoryId),
+    );
+
     return {
       posts,
     };
   }
 
-  async getPost(
-    payload: IGetPost_Request,
-  ): Promise<IGetPost_Response> {
+  async getPost(payload: IGetPost_Request): Promise<IGetPost_Response> {
     const post = await this.repository.getPostById(payload.postId);
     const category = await this.repository.getCategoryById(post.categoryId);
     const comments = await this.repository.listPostComments(post.id);

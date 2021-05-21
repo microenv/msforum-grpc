@@ -20,7 +20,9 @@ async function bootstrap() {
   );
 
   app.listen(() => {
-    logger.log(`[msforum-grpc@${process.env.NODE_ENV}] listening on port ${grpcPort}...`);
+    logger.log(
+      `[msforum-grpc@${process.env.NODE_ENV}] listening on port ${grpcPort}...`,
+    );
   });
 }
 bootstrap();

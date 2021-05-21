@@ -11,7 +11,8 @@ export class DynamodbService {
   constructor(configService: ConfigService) {
     AWS.config.update({
       accessKeyId: configService.get('AWS_ACCESS_KEY_ID') || 'dummyAccessKeyId',
-      secretAccessKey: configService.get('AWS_SECRET_ACCESS_KEY') || 'dummySecretAccessKey',
+      secretAccessKey:
+        configService.get('AWS_SECRET_ACCESS_KEY') || 'dummySecretAccessKey',
       region: configService.get('AWS_REGION'),
       dynamodb: {
         endpoint: configService.get('DYNAMODB_ENDPOINT') || undefined,

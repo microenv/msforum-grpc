@@ -1,16 +1,18 @@
 import * as ProtoLoader from '@grpc/proto-loader';
 import * as GRPC from 'grpc';
-import * as request from 'supertest';
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 import { readFileSync } from 'fs';
-process.env = {...process.env, ...dotenv.parse(readFileSync(join(__dirname, '../../.env.test')))};
+process.env = {
+  ...process.env,
+  ...dotenv.parse(readFileSync(join(__dirname, '../../.env.test'))),
+};
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
 import { microserviceOptions } from 'src/grpc.options';
 import { execSync } from 'child_process';
-import { delayMs, requiredEnvs } from 'src/utils';
+import { requiredEnvs } from 'src/utils';
 import { DynamodbServiceMock } from 'src/dynamodb/__mocks__/dynamodb.service.mock';
 import { DynamodbService } from 'src/dynamodb/dynamodb.service';
 import { TableName } from 'src/dynamodb/dynamodb.utils';
@@ -104,7 +106,9 @@ describe('ForumController (e2e)', () => {
       oneofs: true,
     }) as any;
     // Create Raw gRPC client object
-    const protoDescriptor = GRPC.loadPackageDefinition(packageDefinition) as any;
+    const protoDescriptor = GRPC.loadPackageDefinition(
+      packageDefinition,
+    ) as any;
 
     // Create client connected to started services at standard 5000 port
     client = new protoDescriptor.forum.ForumService(
@@ -139,7 +143,7 @@ describe('ForumController (e2e)', () => {
 
   it('listMainCategories', (done) => {
     dynamodbService.scan.mockReturnValue({ Items: mocks.categories });
-    
+
     client.listMainCategories({}, (err, result) => {
       expect(err).toBeNull();
       expect(result.categories).toStrictEqual(mocks.categories);
@@ -148,13 +152,12 @@ describe('ForumController (e2e)', () => {
 
       expect(dynamodbService.scan).toHaveBeenCalledWith({
         TableName: TableName('categories'),
-        FilterExpression:
-          'attribute_not_exists(parentId) or parentId = :empty',
+        FilterExpression: 'attribute_not_exists(parentId) or parentId = :empty',
         ExpressionAttributeValues: {
           ':empty': null,
         },
       });
-      
+
       done();
     });
   });

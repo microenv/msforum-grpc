@@ -1,7 +1,7 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ConfigModule } from "src/config/config.module";
-import { ConfigService } from "src/config/config.service";
-import { DynamodbService } from "../dynamodb.service";
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigModule } from 'src/config/config.module';
+import { ConfigService } from 'src/config/config.service';
+import { DynamodbService } from '../dynamodb.service';
 
 describe('DynamodbService', () => {
   let service: DynamodbService;

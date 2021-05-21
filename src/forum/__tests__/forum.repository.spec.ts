@@ -1,10 +1,13 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { ICategory, IPost, IPostComment, IPostReaction } from "msforum-grpc";
-import { DynamodbService } from "src/dynamodb/dynamodb.service";
-import { TableName } from "src/dynamodb/dynamodb.utils";
-import { DynamodbServiceMock, ERRLEVEL } from "src/dynamodb/__mocks__/dynamodb.service.mock";
-import { ForumPolice } from "../forum.police";
-import { ForumRepository } from "../forum.repository";
+import { Test, TestingModule } from '@nestjs/testing';
+import { ICategory, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
+import { DynamodbService } from 'src/dynamodb/dynamodb.service';
+import { TableName } from 'src/dynamodb/dynamodb.utils';
+import {
+  DynamodbServiceMock,
+  ERRLEVEL,
+} from 'src/dynamodb/__mocks__/dynamodb.service.mock';
+import { ForumPolice } from '../forum.police';
+import { ForumRepository } from '../forum.repository';
 
 interface IMocks {
   post: IPost;
@@ -80,10 +83,12 @@ describe('ForumRepository', () => {
 
   it('getCategoryById', () => {
     const categoryId = mocks.category.id;
-    
+
     dynamodbService.get.mockReturnValue({ Item: mocks.category });
-    
-    expect(repository.getCategoryById(categoryId)).resolves.toStrictEqual(mocks.category);
+
+    expect(repository.getCategoryById(categoryId)).resolves.toStrictEqual(
+      mocks.category,
+    );
 
     expect(dynamodbService.get).toHaveBeenCalledTimes(1);
 
@@ -97,7 +102,9 @@ describe('ForumRepository', () => {
 
   it('getCategoryById with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.getCategoryById(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+    expect(repository.getCategoryById(mocks.category.id)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('getPostById', () => {
@@ -119,20 +126,23 @@ describe('ForumRepository', () => {
 
   it('getPostById with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.getPostById(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+    expect(repository.getPostById(mocks.category.id)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('listMainCategories', () => {
     dynamodbService.scan.mockReturnValue({ Items: mocks.categories });
 
-    expect(repository.listMainCategories()).resolves.toStrictEqual(mocks.categories);
+    expect(repository.listMainCategories()).resolves.toStrictEqual(
+      mocks.categories,
+    );
 
     expect(dynamodbService.scan).toHaveBeenCalledTimes(1);
 
     expect(dynamodbService.scan).toHaveBeenCalledWith({
       TableName: TableName('categories'),
-      FilterExpression:
-        'attribute_not_exists(parentId) or parentId = :empty',
+      FilterExpression: 'attribute_not_exists(parentId) or parentId = :empty',
       ExpressionAttributeValues: {
         ':empty': null,
       },
@@ -141,7 +151,9 @@ describe('ForumRepository', () => {
 
   it('listMainCategories with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.listMainCategories()).rejects.toEqual(dynamodbService.error);
+    expect(repository.listMainCategories()).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('listSubcategories', () => {
@@ -149,7 +161,9 @@ describe('ForumRepository', () => {
 
     dynamodbService.query.mockReturnValue({ Items: mocks.categories });
 
-    expect(repository.listSubcategories(categoryId)).resolves.toStrictEqual(mocks.categories);
+    expect(repository.listSubcategories(categoryId)).resolves.toStrictEqual(
+      mocks.categories,
+    );
 
     expect(dynamodbService.query).toHaveBeenCalledTimes(1);
 
@@ -165,7 +179,9 @@ describe('ForumRepository', () => {
 
   it('listSubcategories with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.listSubcategories(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+    expect(repository.listSubcategories(mocks.category.id)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('listPostsByCategoryId', () => {
@@ -173,7 +189,9 @@ describe('ForumRepository', () => {
 
     dynamodbService.query.mockReturnValue({ Items: mocks.posts });
 
-    expect(repository.listPostsByCategoryId(categoryId)).resolves.toStrictEqual(mocks.posts);
+    expect(repository.listPostsByCategoryId(categoryId)).resolves.toStrictEqual(
+      mocks.posts,
+    );
 
     expect(dynamodbService.query).toHaveBeenCalledTimes(1);
 
@@ -189,7 +207,9 @@ describe('ForumRepository', () => {
 
   it('listPostsByCategoryId with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.listPostsByCategoryId(mocks.category.id)).rejects.toEqual(dynamodbService.error);
+    expect(repository.listPostsByCategoryId(mocks.category.id)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('listPostComments', () => {
@@ -197,7 +217,9 @@ describe('ForumRepository', () => {
 
     dynamodbService.query.mockReturnValue({ Items: mocks.comments });
 
-    expect(repository.listPostComments(postId)).resolves.toStrictEqual(mocks.comments);
+    expect(repository.listPostComments(postId)).resolves.toStrictEqual(
+      mocks.comments,
+    );
 
     expect(dynamodbService.query).toHaveBeenCalledTimes(1);
 
@@ -214,7 +236,9 @@ describe('ForumRepository', () => {
 
   it('listPostComments with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.listPostComments(mocks.post.id)).rejects.toEqual(dynamodbService.error);
+    expect(repository.listPostComments(mocks.post.id)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('createPost', async () => {
@@ -242,7 +266,9 @@ describe('ForumRepository', () => {
 
   it('createPost with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.createPost(mocks.post)).rejects.toEqual(dynamodbService.error);
+    expect(repository.createPost(mocks.post)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('updatePost', async () => {
@@ -265,7 +291,9 @@ describe('ForumRepository', () => {
     dynamodbService.get.mockReturnValue({ Item: mocks.post });
 
     dynamodbService.setErrorLevel(ERRLEVEL.put);
-    expect(repository.updatePost(mocks.post)).rejects.toEqual(dynamodbService.error);
+    expect(repository.updatePost(mocks.post)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('updatePost with invalid author', () => {
@@ -298,7 +326,9 @@ describe('ForumRepository', () => {
 
   it('createPostComment with error', () => {
     dynamodbService.setErrorLevel(ERRLEVEL.all);
-    expect(repository.createPostComment(mocks.comment)).rejects.toEqual(dynamodbService.error);
+    expect(repository.createPostComment(mocks.comment)).rejects.toEqual(
+      dynamodbService.error,
+    );
   });
 
   it('createPostReaction', async () => {

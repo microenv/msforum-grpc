@@ -1,5 +1,4 @@
-import { Test, TestingModule } from "@nestjs/testing";
-import { TableName } from "../dynamodb.utils";
+import { TableName } from '../dynamodb.utils';
 
 describe('DynamodbUtils', () => {
   it('TableName should handle prefix underline', () => {

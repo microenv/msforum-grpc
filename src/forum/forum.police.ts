@@ -48,7 +48,7 @@ export class ForumPolice {
       createdBy: createdBy || null,
       content,
       createdAt,
-    }
+    };
   }
 
   public sanitizePostReaction({
@@ -66,6 +66,6 @@ export class ForumPolice {
       reactType,
       createdBy: createdBy || null,
       createdAt,
-    }
+    };
   }
 }

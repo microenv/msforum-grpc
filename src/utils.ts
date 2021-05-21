@@ -18,7 +18,7 @@ export function requiredEnvs(envNames: string[]) {
   return true;
 }
 
-export function delayMs(ms: number = 100) {
+export function delayMs(ms = 100) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(null);

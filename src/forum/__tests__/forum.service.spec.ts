@@ -1,5 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICategory, ICreatePostComment_Request, ICreatePostComment_Response, ICreatePostReaction_Request, ICreatePostReaction_Response, ICreatePost_Request, ICreatePost_Response, IGetCategory_Request, IGetCategory_Response, IGetPost_Request, IGetPost_Response, IListPosts_Request, IListPosts_Response, IPost, IPostComment, IPostReaction, IUpdatePost_Request, IUpdatePost_Response } from 'msforum-grpc';
+import {
+  ICategory,
+  ICreatePostComment_Request,
+  ICreatePostComment_Response,
+  ICreatePostReaction_Request,
+  ICreatePostReaction_Response,
+  ICreatePost_Request,
+  ICreatePost_Response,
+  IGetCategory_Request,
+  IGetCategory_Response,
+  IGetPost_Request,
+  IGetPost_Response,
+  IListPosts_Request,
+  IListPosts_Response,
+  IPost,
+  IPostComment,
+  IPostReaction,
+  IUpdatePost_Request,
+  IUpdatePost_Response,
+} from 'msforum-grpc';
 import { ForumRepository } from '../forum.repository';
 import { ForumService } from '../forum.service';
 
@@ -111,9 +130,15 @@ describe('ForumService', () => {
     expect(forumRepository.listSubcategories).toHaveBeenCalledTimes(1);
     expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledTimes(1);
 
-    expect(forumRepository.getCategoryById).toHaveBeenCalledWith(payload.categoryId);
-    expect(forumRepository.listSubcategories).toHaveBeenCalledWith(payload.categoryId);
-    expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledWith(payload.categoryId);
+    expect(forumRepository.getCategoryById).toHaveBeenCalledWith(
+      payload.categoryId,
+    );
+    expect(forumRepository.listSubcategories).toHaveBeenCalledWith(
+      payload.categoryId,
+    );
+    expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledWith(
+      payload.categoryId,
+    );
 
     expect(response).toStrictEqual(responseMock);
   });
@@ -126,10 +151,12 @@ describe('ForumService', () => {
       posts: mocks.posts,
     };
     const response: IListPosts_Response = await service.listPosts(payload);
-    
+
     expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledTimes(1);
 
-    expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledWith(payload.categoryId);
+    expect(forumRepository.listPostsByCategoryId).toHaveBeenCalledWith(
+      payload.categoryId,
+    );
 
     expect(response).toStrictEqual(responseMock);
   });
@@ -145,14 +172,20 @@ describe('ForumService', () => {
       reactions: mocks.reactions,
     };
     const response: IGetPost_Response = await service.getPost(payload);
-    
+
     expect(forumRepository.getPostById).toHaveBeenCalledTimes(1);
     expect(forumRepository.getCategoryById).toHaveBeenCalledTimes(1);
     expect(forumRepository.listPostComments).toHaveBeenCalledTimes(1);
 
-    expect(forumRepository.getPostById).toHaveBeenCalledWith(responseMock.post.id);
-    expect(forumRepository.getCategoryById).toHaveBeenCalledWith(responseMock.post.categoryId);
-    expect(forumRepository.listPostComments).toHaveBeenCalledWith(responseMock.post.id);
+    expect(forumRepository.getPostById).toHaveBeenCalledWith(
+      responseMock.post.id,
+    );
+    expect(forumRepository.getCategoryById).toHaveBeenCalledWith(
+      responseMock.post.categoryId,
+    );
+    expect(forumRepository.listPostComments).toHaveBeenCalledWith(
+      responseMock.post.id,
+    );
 
     expect(response).toStrictEqual(responseMock);
   });
@@ -172,7 +205,8 @@ describe('ForumService', () => {
   it('createPostComment', async () => {
     const payload: ICreatePostComment_Request = mocks.comment;
     const responseMock: ICreatePostComment_Response = mocks.comment;
-    const response: ICreatePostComment_Response = await service.createPostComment(payload);
+    const response: ICreatePostComment_Response =
+      await service.createPostComment(payload);
 
     expect(forumRepository.createPostComment).toHaveBeenCalledTimes(1);
 
@@ -181,10 +215,11 @@ describe('ForumService', () => {
     expect(response).toStrictEqual(responseMock);
   });
 
-  it('createPostReaction', async() => {
+  it('createPostReaction', async () => {
     const payload: ICreatePostReaction_Request = mocks.reaction;
     const responseMock: ICreatePostReaction_Response = mocks.reaction;
-    const response: ICreatePostReaction_Response = await service.createPostReaction(payload);
+    const response: ICreatePostReaction_Response =
+      await service.createPostReaction(payload);
 
     expect(forumRepository.createPostReaction).toHaveBeenCalledTimes(1);
 
@@ -193,7 +228,7 @@ describe('ForumService', () => {
     expect(response).toStrictEqual(responseMock);
   });
 
-  it('updatePost', async() => {
+  it('updatePost', async () => {
     const payload: IUpdatePost_Request = mocks.post;
     const responseMock: IUpdatePost_Response = mocks.post;
     const response: IUpdatePost_Response = await service.updatePost(payload);

@@ -1,5 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICreatePostComment_Request, ICreatePostReaction_Request, ICreatePost_Request, IGetCategory_Request, IGetPost_Request, IListPosts_Request, IUpdatePost_Request } from 'msforum-grpc';
+import {
+  ICreatePostComment_Request,
+  ICreatePostReaction_Request,
+  ICreatePost_Request,
+  IGetCategory_Request,
+  IGetPost_Request,
+  IListPosts_Request,
+  IUpdatePost_Request,
+} from 'msforum-grpc';
 import { ForumController } from '../forum.controller';
 import { ForumService } from '../forum.service';
 
@@ -39,7 +47,9 @@ describe('ForumController', () => {
   });
 
   it('listMainCategories', () => {
-    expect(controller.listMainCategories()).resolves.toStrictEqual(mocks.mainCategories);
+    expect(controller.listMainCategories()).resolves.toStrictEqual(
+      mocks.mainCategories,
+    );
     expect(forumService.listMainCategories).toHaveBeenCalledTimes(1);
   });
 
@@ -86,7 +96,9 @@ describe('ForumController', () => {
       createdBy: 'test-createdBy',
       content: 'test-content',
     };
-    expect(controller.createPostComment(payload)).resolves.toStrictEqual(payload);
+    expect(controller.createPostComment(payload)).resolves.toStrictEqual(
+      payload,
+    );
     expect(forumService.createPostComment).toHaveBeenCalledTimes(1);
   });
 
@@ -97,7 +109,9 @@ describe('ForumController', () => {
       createdBy: 'test-createdBy',
       reactType: 'test-reactType',
     };
-    expect(controller.createPostReaction(payload)).resolves.toStrictEqual(payload);
+    expect(controller.createPostReaction(payload)).resolves.toStrictEqual(
+      payload,
+    );
     expect(forumService.createPostReaction).toHaveBeenCalledTimes(1);
   });
 

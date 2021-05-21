@@ -41,8 +41,10 @@ export class DynamodbServiceMock {
   }
 
   private shouldTriggerError = (currentLevel: ERRLEVEL) => {
-    return this._errorLevel === ERRLEVEL.all || this._errorLevel === currentLevel;
-  }
+    return (
+      this._errorLevel === ERRLEVEL.all || this._errorLevel === currentLevel
+    );
+  };
 
   private dbClient_get = (
     payload: any,
@@ -54,7 +56,7 @@ export class DynamodbServiceMock {
     }
     const result = this.get(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_scan = (
     payload: any,
@@ -66,7 +68,7 @@ export class DynamodbServiceMock {
     }
     const result = this.scan(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_query = (
     payload: any,
@@ -78,7 +80,7 @@ export class DynamodbServiceMock {
     }
     const result = this.query(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_put = (
     payload: any,
@@ -90,5 +92,5 @@ export class DynamodbServiceMock {
     }
     const result = this.put(payload);
     callback(null, result);
-  }
+  };
 }
