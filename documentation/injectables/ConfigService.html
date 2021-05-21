@@ -38,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>DynamodbService</li>
+  <li>ConfigService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/dynamodb/dynamodb.service.ts</code>
+            <code>src/config/config.service.ts</code>
         </p>
 
 
@@ -76,11 +76,8 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#dbClient">dbClient</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#dynamoDB">dynamoDB</a>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#envConfig">envConfig</a>
                             </li>
                         </ul>
                     </td>
@@ -95,10 +92,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getDBClient">getDBClient</a>
-                            </li>
-                            <li>
-                                <a href="#getDynamoDB">getDynamoDB</a>
+                                <a href="#get">get</a>
                             </li>
                         </ul>
                     </td>
@@ -118,12 +112,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(configService: <a href="../injectables/ConfigService.html">ConfigService</a>)</code>
+<code>constructor(filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/dynamodb/dynamodb.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/config/config.service.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -141,10 +135,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>configService</td>
+                                                        <td>filePath</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/ConfigService.html" target="_self" >ConfigService</a></code>
+                                                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -170,26 +164,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getDBClient"></a>
+                    <a name="get"></a>
                     <span class="name">
                         <b>
-                            getDBClient
+                            get
                         </b>
-                        <a href="#getDBClient"><span class="icon ion-ios-link"></span></a>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getDBClient()</code>
+<code>get(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/dynamodb/dynamodb.service.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="14"
+                            class="link-to-prism">src/config/config.service.ts:14</a></div>
                 </td>
             </tr>
 
@@ -198,47 +192,39 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>DocumentClient</code>
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 
                     </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getDynamoDB"></a>
-                    <span class="name">
-                        <b>
-                            getDynamoDB
-                        </b>
-                        <a href="#getDynamoDB"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getDynamoDB()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/dynamodb/dynamodb.service.ts:30</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
                     <div class="io-description">
-                        <b>Returns : </b>    <code>AWS.DynamoDB</code>
-
+                        
                     </div>
                 </td>
             </tr>
@@ -254,52 +240,25 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="dbClient"></a>
+                        <a name="envConfig"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Private</span>
-                            dbClient</b>
-                            <a href="#dbClient"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Readonly</span>
+                            envConfig</b>
+                            <a href="#envConfig"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>DocumentClient</code>
+                            <i>Type : </i>        <code><a href="../interfaces/EnvConfig.html" target="_self" >EnvConfig</a></code>
 
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/dynamodb/dynamodb.service.ts:8</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="dynamoDB"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            dynamoDB</b>
-                            <a href="#dynamoDB"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code>AWS.DynamoDB</code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/dynamodb/dynamodb.service.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/config/config.service.ts:8</a></div>
                             </td>
                         </tr>
 
@@ -312,37 +271,25 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as AWS from &#x27;aws-sdk&#x27;;
-import { DocumentClient } from &#x27;aws-sdk/clients/dynamodb&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import * as dotenv from &#x27;dotenv&#x27;;
+import * as fs from &#x27;fs&#x27;;
+import { EnvConfig } from &#x27;./config.interfaces&#x27;;
 import { Injectable } from &#x27;@nestjs/common&#x27;;
-import { ConfigService } from &#x27;src/config/config.service&#x27;;
 
 @Injectable()
-export class DynamodbService {
-  private dbClient: DocumentClient;
-  private dynamoDB: AWS.DynamoDB;
+export class ConfigService {
+  private readonly envConfig: EnvConfig;
 
-  constructor(configService: ConfigService) {
-    AWS.config.update({
-      accessKeyId: configService.get(&#x27;AWS_ACCESS_KEY_ID&#x27;) || &#x27;dummyAccessKeyId&#x27;,
-      secretAccessKey:
-        configService.get(&#x27;AWS_SECRET_ACCESS_KEY&#x27;) || &#x27;dummySecretAccessKey&#x27;,
-      region: configService.get(&#x27;AWS_REGION&#x27;),
-      dynamodb: {
-        endpoint: configService.get(&#x27;DYNAMODB_ENDPOINT&#x27;) || undefined,
-      },
-    });
-
-    this.dbClient &#x3D; new AWS.DynamoDB.DocumentClient();
-    this.dynamoDB &#x3D; new AWS.DynamoDB();
+  constructor(filePath: string) {
+    this.envConfig &#x3D; dotenv.parse(fs.readFileSync(filePath));
   }
 
-  getDBClient(): DocumentClient {
-    return this.dbClient;
-  }
+  get(key: string): string {
+    if (key in process.env) {
+      return process.env[key];
+    }
 
-  getDynamoDB(): AWS.DynamoDB {
-    return this.dynamoDB;
+    return this.envConfig[key];
   }
 }
 </code></pre>
@@ -378,7 +325,7 @@ export class DynamodbService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'DynamodbService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfigService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

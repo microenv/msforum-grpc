@@ -60,16 +60,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link">AppModule</a>
                             </li>
                             <li class="link">
+                                <a href="modules/ConfigModule.html" data-type="entity-link">ConfigModule</a>
+                            </li>
+                            <li class="link">
                                 <a href="modules/DynamodbModule.html" data-type="entity-link">DynamodbModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-DynamodbModule-3013f7e5c7a00942c7b8d22fc21530c6"' : 'data-target="#xs-injectables-links-module-DynamodbModule-3013f7e5c7a00942c7b8d22fc21530c6"' }>
+                                        'data-target="#injectables-links-module-DynamodbModule-253347deaf21df25b640e47fd814712b"' : 'data-target="#xs-injectables-links-module-DynamodbModule-253347deaf21df25b640e47fd814712b"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-DynamodbModule-3013f7e5c7a00942c7b8d22fc21530c6"' :
-                                        'id="xs-injectables-links-module-DynamodbModule-3013f7e5c7a00942c7b8d22fc21530c6"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-DynamodbModule-253347deaf21df25b640e47fd814712b"' :
+                                        'id="xs-injectables-links-module-DynamodbModule-253347deaf21df25b640e47fd814712b"' }>
                                         <li class="link">
                                             <a href="injectables/DynamodbService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>DynamodbService</a>
@@ -130,6 +133,32 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
                             <li class="link">
                                 <a href="classes/DynamodbServiceMock.html" data-type="entity-link">DynamodbServiceMock</a>
+                            </li>
+                        </ul>
+                    </li>
+                        <li class="chapter">
+                            <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#injectables-links"' :
+                                'data-target="#xs-injectables-links"' }>
+                                <span class="icon ion-md-arrow-round-down"></span>
+                                <span>Injectables</span>
+                                <span class="icon ion-ios-arrow-down"></span>
+                            </div>
+                            <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
+                                <li class="link">
+                                    <a href="injectables/ConfigService.html" data-type="entity-link">ConfigService</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#interfaces-links"' :
+                            'data-target="#xs-interfaces-links"' }>
+                            <span class="icon ion-md-information-circle-outline"></span>
+                            <span>Interfaces</span>
+                            <span class="icon ion-ios-arrow-down"></span>
+                        </div>
+                        <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
+                            <li class="link">
+                                <a href="interfaces/EnvConfig.html" data-type="entity-link">EnvConfig</a>
                             </li>
                         </ul>
                     </li>

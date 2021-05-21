@@ -105,6 +105,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
+                                <a href="#ping">ping</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#updatePost">updatePost</a>
                             </li>
                         </ul>
@@ -155,8 +159,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="61"
-                            class="link-to-prism">src/forum/forum.controller.ts:61</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/forum/forum.controller.ts:67</a></div>
                 </td>
             </tr>
 
@@ -234,8 +238,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">src/forum/forum.controller.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">src/forum/forum.controller.ts:74</a></div>
                 </td>
             </tr>
 
@@ -313,8 +317,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/forum/forum.controller.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/forum/forum.controller.ts:81</a></div>
                 </td>
             </tr>
 
@@ -392,8 +396,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/forum/forum.controller.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/forum/forum.controller.ts:46</a></div>
                 </td>
             </tr>
 
@@ -471,8 +475,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/forum/forum.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/forum/forum.controller.ts:60</a></div>
                 </td>
             </tr>
 
@@ -550,8 +554,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/forum/forum.controller.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/forum/forum.controller.ts:34</a></div>
                 </td>
             </tr>
 
@@ -598,8 +602,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">src/forum/forum.controller.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/forum/forum.controller.ts:53</a></div>
                 </td>
             </tr>
 
@@ -650,6 +654,54 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="ping"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            ping
+                        </b>
+                        <a href="#ping"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ping()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@GrpcMethod(&#x27;ForumService&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/forum/forum.controller.ts:29</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>IPing_Response</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="updatePost"></a>
                     <span class="name">
                         <b>
@@ -677,8 +729,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="82"
-                            class="link-to-prism">src/forum/forum.controller.ts:82</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="88"
+                            class="link-to-prism">src/forum/forum.controller.ts:88</a></div>
                 </td>
             </tr>
 
@@ -747,6 +799,7 @@ import {
   IListMainCategories_Response,
   IListPosts_Request,
   IListPosts_Response,
+  IPing_Response,
   IUpdatePost_Request,
   IUpdatePost_Response,
 } from &#x27;msforum-grpc&#x27;;
@@ -754,6 +807,11 @@ import {
 @Controller()
 export class ForumController implements IForumClient {
   constructor(private readonly forumService: ForumService) {}
+
+  @GrpcMethod(&#x27;ForumService&#x27;)
+  public ping(): IPing_Response {
+    return { ping: &#x27;pong&#x27; };
+  }
 
   @GrpcMethod(&#x27;ForumService&#x27;)
   public listMainCategories(): Promise&lt;IListMainCategories_Response&gt; {

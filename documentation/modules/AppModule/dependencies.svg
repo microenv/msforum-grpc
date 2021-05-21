@@ -22,41 +22,53 @@
 <text text-anchor="start" x="429.73" y="-15.4" font-family="sans-serif" font-size="14.00"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_AppModule</title>
-<polygon fill="none" stroke="black" stroke-dasharray="1,5" points="114,-70 114,-195 382,-195 382,-70 114,-70"/>
+<polygon fill="none" stroke="black" stroke-dasharray="1,5" points="56,-70 56,-195 440,-195 440,-70 56,-70"/>
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_AppModule_imports</title>
-<polygon fill="none" stroke="black" points="122,-78 122,-130 374,-130 374,-78 122,-78"/>
+<polygon fill="none" stroke="black" points="64,-78 64,-130 432,-130 432,-78 64,-78"/>
 </g>
-<!-- DynamodbModule -->
+<!-- ConfigModule -->
 <g id="node1" class="node">
-<title>DynamodbModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="365.76,-122 362.76,-126 341.76,-126 338.76,-122 244.24,-122 244.24,-86 365.76,-86 365.76,-122"/>
-<text text-anchor="middle" x="305" y="-99.8" font-family="Times,serif" font-size="14.00">DynamodbModule</text>
+<title>ConfigModule</title>
+<polygon fill="#8dd3c7" stroke="black" points="424.44,-122 421.44,-126 400.44,-126 397.44,-122 325.56,-122 325.56,-86 424.44,-86 424.44,-122"/>
+<text text-anchor="middle" x="375" y="-99.8" font-family="Times,serif" font-size="14.00">ConfigModule</text>
 </g>
 <!-- AppModule -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>AppModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="282.66,-187 279.66,-191 258.66,-191 255.66,-187 199.34,-187 199.34,-151 282.66,-151 282.66,-187"/>
-<text text-anchor="middle" x="241" y="-164.8" font-family="Times,serif" font-size="14.00">AppModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="288.66,-187 285.66,-191 264.66,-191 261.66,-187 205.34,-187 205.34,-151 288.66,-151 288.66,-187"/>
+<text text-anchor="middle" x="247" y="-164.8" font-family="Times,serif" font-size="14.00">AppModule</text>
+</g>
+<!-- ConfigModule&#45;&gt;AppModule -->
+<g id="edge1" class="edge">
+<title>ConfigModule&#45;&gt;AppModule</title>
+<path fill="none" stroke="black" d="M375,-122.11C375,-141.34 375,-169 375,-169 375,-169 298.91,-169 298.91,-169"/>
+<polygon fill="black" stroke="black" points="298.91,-165.5 288.91,-169 298.91,-172.5 298.91,-165.5"/>
+</g>
+<!-- DynamodbModule -->
+<g id="node2" class="node">
+<title>DynamodbModule</title>
+<polygon fill="#8dd3c7" stroke="black" points="307.76,-122 304.76,-126 283.76,-126 280.76,-122 186.24,-122 186.24,-86 307.76,-86 307.76,-122"/>
+<text text-anchor="middle" x="247" y="-99.8" font-family="Times,serif" font-size="14.00">DynamodbModule</text>
 </g>
 <!-- DynamodbModule&#45;&gt;AppModule -->
-<g id="edge1" class="edge">
+<g id="edge2" class="edge">
 <title>DynamodbModule&#45;&gt;AppModule</title>
-<path fill="none" stroke="black" d="M263.47,-122.11C263.47,-122.11 263.47,-140.99 263.47,-140.99"/>
-<polygon fill="black" stroke="black" points="259.97,-140.99 263.47,-150.99 266.97,-140.99 259.97,-140.99"/>
+<path fill="none" stroke="black" d="M247,-122.11C247,-122.11 247,-140.99 247,-140.99"/>
+<polygon fill="black" stroke="black" points="243.5,-140.99 247,-150.99 250.5,-140.99 243.5,-140.99"/>
 </g>
 <!-- ForumModule -->
-<g id="node2" class="node">
+<g id="node3" class="node">
 <title>ForumModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="226.38,-122 223.38,-126 202.38,-126 199.38,-122 129.62,-122 129.62,-86 226.38,-86 226.38,-122"/>
-<text text-anchor="middle" x="178" y="-99.8" font-family="Times,serif" font-size="14.00">ForumModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="168.38,-122 165.38,-126 144.38,-126 141.38,-122 71.62,-122 71.62,-86 168.38,-86 168.38,-122"/>
+<text text-anchor="middle" x="120" y="-99.8" font-family="Times,serif" font-size="14.00">ForumModule</text>
 </g>
 <!-- ForumModule&#45;&gt;AppModule -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>ForumModule&#45;&gt;AppModule</title>
-<path fill="none" stroke="black" d="M212.81,-122.11C212.81,-122.11 212.81,-140.99 212.81,-140.99"/>
-<polygon fill="black" stroke="black" points="209.31,-140.99 212.81,-150.99 216.31,-140.99 209.31,-140.99"/>
+<path fill="none" stroke="black" d="M120,-122.11C120,-141.34 120,-169 120,-169 120,-169 195.06,-169 195.06,-169"/>
+<polygon fill="black" stroke="black" points="195.06,-172.5 205.06,-169 195.06,-165.5 195.06,-172.5"/>
 </g>
 </g>
 </svg>

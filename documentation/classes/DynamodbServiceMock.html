@@ -134,6 +134,9 @@
                                 <a href="#getDBClient">getDBClient</a>
                             </li>
                             <li>
+                                <a href="#reset">reset</a>
+                            </li>
+                            <li>
                                 <a href="#setErrorLevel">setErrorLevel</a>
                             </li>
                         </ul>
@@ -148,6 +151,24 @@
     </table>
 </section>
 
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:17</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
             <section>
     
@@ -207,7 +228,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:36</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:49</a></div>
                             </td>
                         </tr>
 
@@ -234,7 +255,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:72</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:85</a></div>
                             </td>
                         </tr>
 
@@ -261,7 +282,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:60</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:73</a></div>
                             </td>
                         </tr>
 
@@ -288,7 +309,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:61</a></div>
                             </td>
                         </tr>
 
@@ -345,11 +366,6 @@
 
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>jest.fn()</code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:11</a></div>
@@ -375,11 +391,6 @@
                         <td class="col-md-4">
                             <i>Type : </i>    <code>jest.Mock</code>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>jest.fn()</code>
                         </td>
                     </tr>
                         <tr>
@@ -409,11 +420,6 @@
 
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>jest.fn()</code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
                                     <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:13</a></div>
@@ -439,11 +445,6 @@
                         <td class="col-md-4">
                             <i>Type : </i>    <code>jest.Mock</code>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>jest.fn()</code>
                         </td>
                     </tr>
                         <tr>
@@ -475,7 +476,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:43</a></div>
                             </td>
                         </tr>
 
@@ -511,8 +512,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="19"
-                            class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:19</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:30</a></div>
                 </td>
             </tr>
 
@@ -522,6 +523,45 @@
 
                     <div class="io-description">
                         <b>Returns : </b>    <code>{ get: (payload: any, callback: (err: any, data: any) &#x3D;&gt; void) &#x3D;&gt; void; scan: (payload: any, call...</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reset"></a>
+                    <span class="name">
+                        <b>
+                            reset
+                        </b>
+                        <a href="#reset"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>reset()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:23</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                 </td>
@@ -550,8 +590,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/dynamodb/__mocks__/dynamodb.service.mock.ts:39</a></div>
                 </td>
             </tr>
 
@@ -618,13 +658,24 @@
 }
 
 export class DynamodbServiceMock {
-  get: jest.Mock &#x3D; jest.fn();
-  scan: jest.Mock &#x3D; jest.fn();
-  query: jest.Mock &#x3D; jest.fn();
-  put: jest.Mock &#x3D; jest.fn();
+  get: jest.Mock;
+  scan: jest.Mock;
+  query: jest.Mock;
+  put: jest.Mock;
   error: Error &#x3D; new Error(&#x27;test-error&#x27;);
 
   private _errorLevel: ERRLEVEL &#x3D; ERRLEVEL.none;
+
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.get &#x3D; jest.fn();
+    this.scan &#x3D; jest.fn();
+    this.query &#x3D; jest.fn();
+    this.put &#x3D; jest.fn();
+  }
 
   getDBClient() {
     return {
@@ -640,8 +691,10 @@ export class DynamodbServiceMock {
   }
 
   private shouldTriggerError &#x3D; (currentLevel: ERRLEVEL) &#x3D;&gt; {
-    return this._errorLevel &#x3D;&#x3D;&#x3D; ERRLEVEL.all || this._errorLevel &#x3D;&#x3D;&#x3D; currentLevel;
-  }
+    return (
+      this._errorLevel &#x3D;&#x3D;&#x3D; ERRLEVEL.all || this._errorLevel &#x3D;&#x3D;&#x3D; currentLevel
+    );
+  };
 
   private dbClient_get &#x3D; (
     payload: any,
@@ -653,7 +706,7 @@ export class DynamodbServiceMock {
     }
     const result &#x3D; this.get(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_scan &#x3D; (
     payload: any,
@@ -665,7 +718,7 @@ export class DynamodbServiceMock {
     }
     const result &#x3D; this.scan(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_query &#x3D; (
     payload: any,
@@ -677,7 +730,7 @@ export class DynamodbServiceMock {
     }
     const result &#x3D; this.query(payload);
     callback(null, result);
-  }
+  };
 
   private dbClient_put &#x3D; (
     payload: any,
@@ -689,7 +742,7 @@ export class DynamodbServiceMock {
     }
     const result &#x3D; this.put(payload);
     callback(null, result);
-  }
+  };
 }
 </code></pre>
     </div>
