@@ -16,7 +16,8 @@ import { requiredEnvs } from 'src/utils';
 import { DynamodbServiceMock } from 'src/dynamodb/__mocks__/dynamodb.service.mock';
 import { DynamodbService } from 'src/dynamodb/dynamodb.service';
 import { TableName } from 'src/dynamodb/dynamodb.utils';
-import { ICategory, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
+import { ICategory, ICreatePostReaction_Request, IPost, IPostComment, IPostReaction } from 'msforum-grpc';
+import { ForumPolice } from 'src/forum/forum.police';
 
 requiredEnvs(['NODE_ENV', 'GRPC_PORT', 'AWS_REGION']);
 
@@ -77,10 +78,12 @@ describe('ForumController (e2e)', () => {
   let app: INestApplication;
   let client: any;
   let dynamodbService: DynamodbServiceMock;
+  let policeService: ForumPolice;
   const testPort = process.env.GRPC_PORT;
 
   beforeAll(async () => {
     dynamodbService = new DynamodbServiceMock();
+    policeService = new ForumPolice();
 
     // Create Nest APP
     const module: TestingModule = await Test.createTestingModule({
@@ -156,6 +159,47 @@ describe('ForumController (e2e)', () => {
         ExpressionAttributeValues: {
           ':empty': null,
         },
+      });
+
+      done();
+    });
+  });
+
+  it('createPostReaction', (done) => {
+    dynamodbService.put.mockReturnValue({ Items: mocks.reaction });
+
+    const payload: ICreatePostReaction_Request = {
+      postId: mocks.reaction.postId,
+      commentId: mocks.reaction.commentId,
+      createdBy: mocks.reaction.createdBy,
+      reactType: mocks.reaction.reactType,
+    };
+
+    client.createPostReaction(payload, (err, result) => {
+      expect(err).toBeNull();
+      expect(result.id).toBeDefined();
+      expect(result.createdAt).toBeDefined();
+      expect(new Date(result.createdAt).getTime()).toBeGreaterThan(0);
+      
+      expect(dynamodbService.put).toHaveBeenCalledTimes(1);
+
+      const Item = policeService.sanitizePostReaction({
+        ...payload,
+        id: result.id,
+        createdAt: result.createdAt,
+      });
+
+      // Why are this fields showing here?
+      //   They are optional on .proto schema
+      //   but does they need to return?
+      if (result._postId) delete result._postId;
+      if (result._commentId) delete result._commentId;
+
+      expect(result).toStrictEqual(Item);
+
+      expect(dynamodbService.put).toHaveBeenCalledWith({
+        TableName: TableName('reactions'),
+        Item,
       });
 
       done();
