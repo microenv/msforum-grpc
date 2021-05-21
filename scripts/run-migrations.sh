@@ -1,6 +1,17 @@
 #!/bin/bash
 DIR=$(dirname $0)
 
+#------------------------------------------------------------------
+# This is a old migrations file
+# and should not be used anymore
+#
+# Please use one of this:
+#   yarn migrate:docker  - Execute migrations inside local docker containers
+#   yarn migrate:local   - Execute migrations on local machine using .env
+#------------------------------------------------------------------
+echo "Deprecated script"
+exit 1
+
 # --------------------------------
 # run-migrations.sh
 #
