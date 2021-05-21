@@ -4,9 +4,9 @@
     "../"
   ],
   "moduleFileExtensions": ["js", "json", "ts"],
-  "rootDir": "e2e",
+  "rootDir": "db",
   "testEnvironment": "node",
-  "testRegex": ".e2e-spec.ts$",
+  "testRegex": ".db-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   }

@@ -22,6 +22,8 @@
     "cov:open": "npx http-server -c-1 -o coverage/lcov-report",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:db:docker": "docker exec msforum-grpc-local sh -c 'cd /app && yarn test:db:local'",
+    "test:db:local": "jest --config ./test/jest-db.json",
     "doc": "npx @compodoc/compodoc -p tsconfig.json -s",
     "migrate": "ts-node -r tsconfig-paths/register -- src/dynamodb/migrations.ts"
   },

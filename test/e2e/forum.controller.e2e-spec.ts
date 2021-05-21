@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import * as dotenv from 'dotenv';
 import { join } from 'path';
 import { readFileSync } from 'fs';
-process.env = {...process.env, ...dotenv.parse(readFileSync(join(__dirname, '../.env.test')))};
+process.env = {...process.env, ...dotenv.parse(readFileSync(join(__dirname, '../../.env.test')))};
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { AppModule } from 'src/app.module';
@@ -124,7 +124,7 @@ describe('ForumController (e2e)', () => {
   it(`Port ${testPort} is open`, () => {
     expect(testPort).toBeDefined();
     const res = execSync(`nmap -p ${testPort} localhost`).toString();
-    expect(res.indexOf('30560/tcp open')).toBeGreaterThan(-1);
+    expect(res.indexOf(`${testPort}/tcp open`)).toBeGreaterThan(-1);
   });
 
   it('ping', (done) => {
