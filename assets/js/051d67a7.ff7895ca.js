@@ -1,0 +1,1 @@
+(self.webpackChunkmsforum_grpc=self.webpackChunkmsforum_grpc||[]).push([[32],{6353:function(e){"use strict";e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Welcome","permalink":"/msforum-grpc/blog/welcome"},{"title":"Hello","permalink":"/msforum-grpc/blog/hello-world"},{"title":"Hola","permalink":"/msforum-grpc/blog/hola"}]}')}}]);
