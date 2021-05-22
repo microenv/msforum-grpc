@@ -2,8 +2,8 @@
 module.exports = {
   title: 'MSForum',
   tagline: 'gRPC open source microservice for forums',
-  url: 'https://microenv.github.io/msforum-grpc',
-  baseUrl: '/',
+  url: 'https://microenv.github.io',
+  baseUrl: '/msforum-grpc/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.png',
