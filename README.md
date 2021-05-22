@@ -1,17 +1,33 @@
-# Forum GRPC Microservice
+# Website
 
-> Docs in progress...
->
-> Do not use this project yet
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
-This is a forum GRPC server which you can use to develop your own forum. You should create your API gateway in order to use it.
+## Installation
 
-## Getting Started
+```console
+yarn install
+```
 
-You need to develop a backend client to communicate with this microservice. The client should communicate with this microservice using GRPC protocol.
+## Local Development
 
-In order to make it easier, we've created some tutorials:
+```console
+yarn start
+```
 
-* [Easiest way to use msforum-grpc on your NodeJS software](./README.md)
-* [Node client for msforum-grpc](./README.md)
-* [NestJS API Gateway example](./README.md)
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+
+## Build
+
+```console
+yarn build
+```
+
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+## Deployment
+
+```console
+GIT_USER=<Your GitHub username> USE_SSH=true yarn deploy
+```
+
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
